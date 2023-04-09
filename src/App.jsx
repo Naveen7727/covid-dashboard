@@ -3,10 +3,13 @@ import "./App.css";
 import Table from "./Table";
 import Card from "./Card";
 import { CustomerService } from "./services/CustermerService";
+import axios from "axios";
+import Flags from "./services/flags";
 
 function App() {
   const [statistics, setStatistics] = useState(null);
   const [countryInfo, setCountryInfo] = useState([]);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     CustomerService.getStatistics().then((data) =>
@@ -19,8 +22,15 @@ function App() {
       setCountryInfo(data.data.rows)
     );
   }, []);
-  console.log(countryInfo);
-  console.log(statistics);
+
+  useEffect(() => {
+    axios.get("https://covid-19.dataflowkit.com/v1").then((response) => {
+      setData(
+        response.data.map((el) => ({ ...el, flagCode: Flags[el.Country_text] }))
+      );
+    });
+  }, []);
+
   return (
     <div className="App">
       {statistics && (
@@ -39,9 +49,7 @@ function App() {
           />
         </div>
       )}
-      {/* <Data/>
-      <Paginator/> */}
-      {countryInfo.length > 0 && <Table rows={countryInfo} />}
+      {data.length > 0 && <Table rows={data} />}
     </div>
   );
 }

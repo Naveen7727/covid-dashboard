@@ -51,24 +51,28 @@ export default function DataTableComponent({ rows }) {
           <InputText
             value={globalFilterValue}
             onChange={onGlobalFilterChange}
-            placeholder="Keyword Search"
+            placeholder="Search by country"
           />
         </span>
       </div>
     );
   };
 
-  
-
   const ImgColumnTemplate = (country) => {
     return (
       <div className="flex align-items-center gap-2">
-        <img alt={country.name} src={country.flag} width="32" />
+        {country.flagCode ? (
+          <img
+            alt={country.Country_text}
+            src={`https://www.worldometers.info/img/flags/${country.flagCode}-flag.gif`}
+            width="32"
+          />
+        ) : (
+          "NA"
+        )}
       </div>
     );
   };
-
-  
 
   const header = renderHeader();
 
@@ -81,12 +85,12 @@ export default function DataTableComponent({ rows }) {
         dataKey="id"
         filters={filters}
         loading={loading}
-        globalFilterFields={["country"]}
+        globalFilterFields={["Country_text"]}
         header={header}
-        emptyMessage="No customers found."
+        emptyMessage="No data found."
       >
         <Column
-          field="country"
+          field="Country_text"
           header="Country Name"
           style={{ minWidth: "12rem" }}
         />
@@ -98,16 +102,16 @@ export default function DataTableComponent({ rows }) {
         />
         <Column
           header="Confirmed Cases"
-          field="total_cases"
+          field="Active Cases_text"
           style={{ minWidth: "14rem" }}
         />
         <Column
-          field="total_deaths"
+          field="Total Deaths_text"
           header="Deaths"
           style={{ minWidth: "12rem" }}
         />
         <Column
-          field="total_recovered"
+          field="Total Recovered_text"
           header="Recovered"
           style={{ minWidth: "6rem" }}
         />
