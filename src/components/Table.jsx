@@ -1,37 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { classNames } from "primereact/utils";
 import { FilterMatchMode, FilterOperator } from "primereact/api";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { InputText } from "primereact/inputtext";
-import { Dropdown } from "primereact/dropdown";
-import { MultiSelect } from "primereact/multiselect";
-import { Tag } from "primereact/tag";
-import { TriStateCheckbox } from "primereact/tristatecheckbox";
-import { CustomerService } from "./services/CustermerService";
 
 export default function DataTableComponent({ rows }) {
-  const [customers, setCustomers] = useState(null);
   const [filters, setFilters] = useState({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
   });
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [globalFilterValue, setGlobalFilterValue] = useState("");
-
-  useEffect(() => {
-    CustomerService.getCustomersMedium().then((data) => {
-      setCustomers(getCustomers(data));
-      setLoading(false);
-    });
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const getCustomers = (data) => {
-    return [...(data || [])].map((d) => {
-      d.date = new Date(d.date);
-
-      return d;
-    });
-  };
 
   const onGlobalFilterChange = (e) => {
     const value = e.target.value;
@@ -68,7 +46,7 @@ export default function DataTableComponent({ rows }) {
             width="32"
           />
         ) : (
-          "NA"
+          "N/A"
         )}
       </div>
     );
