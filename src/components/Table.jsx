@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { FilterMatchMode, FilterOperator } from "primereact/api";
+import React, { useState } from "react";
+import { FilterMatchMode } from "primereact/api";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { InputText } from "primereact/inputtext";
@@ -8,7 +8,6 @@ export default function DataTableComponent({ rows }) {
   const [filters, setFilters] = useState({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
   });
-  const [loading, setLoading] = useState(false);
   const [globalFilterValue, setGlobalFilterValue] = useState("");
 
   const onGlobalFilterChange = (e) => {
@@ -60,9 +59,8 @@ export default function DataTableComponent({ rows }) {
         value={rows}
         paginator
         rows={10}
-        dataKey="id"
+        dataKey="Country_text"
         filters={filters}
-        loading={loading}
         globalFilterFields={["Country_text"]}
         header={header}
         emptyMessage="No data found."

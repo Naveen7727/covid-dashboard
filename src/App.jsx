@@ -6,6 +6,7 @@ import Card from "./components/Card";
 import Flags from "./services/flags";
 import CovidLogo from "./assets/image.png";
 
+
 function App() {
   const [data, setData] = useState([]);
   const [statistics, setStatistics] = useState(null);

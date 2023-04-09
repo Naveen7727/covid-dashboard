@@ -10,7 +10,9 @@ import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 
 //icons
-import "primeicons/primeicons.css";                                         
+import "primeicons/primeicons.css";        
+//primeflex
+import "primeflex/primeflex.css";                                
         
 
 ReactDOM.createRoot(document.getElementById('root')).render(
